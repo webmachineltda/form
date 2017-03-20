@@ -14,6 +14,18 @@ return [
     */
     'wrapperClass' => 'form-group',
 
+    /*
+     * What should each form input be
+     * wrapped within?
+    */
+    'inputWrapper' => '',
+
+    /*
+     * What class should the input wrapper
+     * receive?
+    */
+    'inputWrapperClass' => '',    
+    
     /**
      * Should form inputs receive a class name?
      */

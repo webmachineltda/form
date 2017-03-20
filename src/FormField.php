@@ -119,7 +119,7 @@ class FormField {
      */
     public function hidden($name, $attributes = []) {
         $value = isset($attributes['value'])? $attributes['value'] : '';
-        return sprintf('<input type="hidden" name="%s" value="%s" %s>', $name, $value, $this->setAttributes($attributes, ['type', 'name', 'value']));
+        return sprintf('<input type="hidden" name="%s" value="%s"%s>', $name, $value, $this->setAttributes($attributes, ['type', 'name', 'value']));
     }
     
     /**
@@ -131,8 +131,29 @@ class FormField {
      */
     public function button($label, $attributes = []) {
         $type = isset($attributes['type'])? $attributes['type'] : 'button';
-        return sprintf('<button type="%s" %s>%s</button>', $type,  $this->setAttributes($attributes, ['type']), $label);
-    }    
+        return sprintf('<button type="%s"%s>%s</button>', $type,  $this->setAttributes($attributes, ['type']), $label);
+    }
+
+    /**
+     * Form open
+     * 
+     * @param array $attributes
+     * @return string
+     */
+    public function open($attributes = []) {
+        $method = isset($attributes['method'])? $attributes['method'] : 'POST';
+        $enctype = isset($attributes['file']) && $attributes['file']? ' enctype="multipart/form-data"' : '';
+        return sprintf('<form method="%s"%s%s>', $method, $enctype, $this->setAttributes($attributes, ['method', 'file', 'enctype']));
+    }
+    
+    /**
+     * Form close
+     * 
+     * @return string
+     */
+    public function close() {
+        return '</form>';
+    }
     
     /**
      * Set Default config
@@ -153,6 +174,8 @@ class FormField {
     public function resetConfigs() {
         $this->wrapper = config('formfield.wrapper');
         $this->wrapperClass = config('formfield.wrapperClass');
+        $this->inputWrapper = config('formfield.inputWrapper');
+        $this->inputWrapperClass = config('formfield.inputWrapperClass');
         $this->inputClass = config('formfield.inputClass');
         $this->labelClass = config('formfield.labelClass');
         $this->emptyOptionText = config('formfield.emptyOptionText');
@@ -172,6 +195,7 @@ class FormField {
         $class = isset($attributes['class'])? $attributes['class'] : $this->inputClass;
         $id = isset($attributes['id'])? $attributes['id'] : $name;
         $field = sprintf($format, $name, $class, $id, $this->setAttributes($attributes));
+        $field = sprintf($this->createInputWrapper(), $field);
         return sprintf($this->createWrapper(), $label . "\n" . $field);
     }    
     
@@ -186,7 +210,7 @@ class FormField {
         $result = [];
         foreach ($attributes as $attr => $val) {
             if(in_array($attr, $banned)) continue;
-            $result[] = "$attr=\"$val\"";
+            $result[] = " $attr=\"$val\"";
         }
         return implode('', $result);
     }
@@ -199,8 +223,19 @@ class FormField {
     protected function createWrapper() {
         $wrapper = $this->wrapper;
         $wrapperClass = $this->wrapperClass;
-        return "<$wrapper class='$wrapperClass'>%s</$wrapper>";
+        return $wrapper == ''? '%s': "<$wrapper class='$wrapperClass'>%s</$wrapper>";
     }
+    
+    /**
+     * Prepare the wrapping container for each field.
+     * 
+     * @return string
+     */
+    protected function createInputWrapper() {
+        $wrapper = $this->inputWrapper;
+        $wrapperClass = $this->inputWrapperClass;
+        return $wrapper == ''? '%s': "<$wrapper class='$wrapperClass'>%s</$wrapper>";
+    }    
     
     /**
      * Create label
