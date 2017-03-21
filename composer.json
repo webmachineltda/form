@@ -1,6 +1,6 @@
 {
-    "name": "webmachine/form-field",
-    "description": "FormField for Laravel 5",
+    "name": "webmachine/form",
+    "description": "Form for Laravel 5",
     "type": "library",
     "license": "MIT",
     "keywords": ["form", "input", "laravel"],
@@ -17,12 +17,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Webmachine\\FormField\\": "src"
+            "Webmachine\\Form\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Webmachine\\FormField\\": "tests"
+            "Webmachine\\Form\\": "tests"
         }
     }  
 }

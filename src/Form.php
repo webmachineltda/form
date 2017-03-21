@@ -1,7 +1,7 @@
 <?php
-namespace Webmachine\FormField;
+namespace Webmachine\Form;
 
-class FormField {
+class Form {
     
     /*
      * What should each form element be
@@ -173,13 +173,13 @@ class FormField {
      * @return void
      */
     public function resetConfigs() {
-        $this->wrapper = config('formfield.wrapper');
-        $this->wrapperClass = config('formfield.wrapperClass');
-        $this->inputWrapper = config('formfield.inputWrapper');
-        $this->inputWrapperClass = config('formfield.inputWrapperClass');
-        $this->inputClass = config('formfield.inputClass');
-        $this->labelClass = config('formfield.labelClass');
-        $this->emptyOptionText = config('formfield.emptyOptionText');
+        $this->wrapper = config('form.wrapper');
+        $this->wrapperClass = config('form.wrapperClass');
+        $this->inputWrapper = config('form.inputWrapper');
+        $this->inputWrapperClass = config('form.inputWrapperClass');
+        $this->inputClass = config('form.inputClass');
+        $this->labelClass = config('form.labelClass');
+        $this->emptyOptionText = config('form.emptyOptionText');
     }    
     
     /**

@@ -1,9 +1,9 @@
 <?php
-namespace Webmachine\FormField;
+namespace Webmachine\Form;
 
 use Illuminate\Support\ServiceProvider;
 
-class FormFieldServiceProvider extends ServiceProvider {
+class FormServiceProvider extends ServiceProvider {
     /**
      * Perform post-registration booting of services.
      *
@@ -12,11 +12,11 @@ class FormFieldServiceProvider extends ServiceProvider {
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('formfield.php')
+            __DIR__.'/config/config.php' => config_path('form.php')
         ], 'config');
         
         $this->mergeConfigFrom(
-            __DIR__.'/config/config.php', 'formfield'
+            __DIR__.'/config/config.php', 'form'
         );        
     }
 
@@ -27,8 +27,8 @@ class FormFieldServiceProvider extends ServiceProvider {
      */
     public function register()
     {        
-        return \App::bind('form_field', function(){
-            return new FormField();
+        return \App::bind('form', function(){
+            return new Form();
         });
     }
 }

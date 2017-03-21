@@ -1,11 +1,11 @@
-# FormField for Laravel 5
+# Form for Laravel 5
 
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require webmachine/form-field
+$ composer require webmachine/form
 ```
 
 Next, you must install the service provider and facade alias:
@@ -14,28 +14,28 @@ Next, you must install the service provider and facade alias:
 // config/app.php
 'providers' => [
     ...
-    Webmachine\FormField\FormFieldServiceProvider::class,
+    Webmachine\Form\FormServiceProvider::class,
 ];
 
 ...
 
 'aliases' => [
     ...
-    'Logs' => Webmachine\FormField\FormFieldFacade::class,
+    'Form' => Webmachine\Form\FormFacade::class,
 ];
 ```
 
 Publish
 
 ``` bash
-$ php artisan vendor:publish --provider="Webmachine\FormField\FormFieldServiceProvider"
+$ php artisan vendor:publish --provider="Webmachine\Form\FormServiceProvider"
 ```
 
 ## Usage
 
 In your views
 ``` blade
-{!! FormField::text('mytext', ['class' => 'myclass']) !!}
+{!! Form::text('mytext', ['class' => 'myclass']) !!}
 ```
 
 ## License
