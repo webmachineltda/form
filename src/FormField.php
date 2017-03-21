@@ -210,7 +210,11 @@ class FormField {
         $result = [];
         foreach ($attributes as $attr => $val) {
             if(in_array($attr, $banned)) continue;
-            $result[] = " $attr=\"$val\"";
+            if(is_bool($val)) {
+                $result[] = $val? " $attr" : "";
+            } else {
+                $result[] = " $attr=\"$val\"";
+            }
         }
         return implode('', $result);
     }
