@@ -142,8 +142,9 @@ class FormField {
      */
     public function open($attributes = []) {
         $method = isset($attributes['method'])? $attributes['method'] : 'POST';
+        $action = isset($attributes['action'])? url($attributes['action']) : '';
         $enctype = isset($attributes['file']) && $attributes['file']? ' enctype="multipart/form-data"' : '';
-        return sprintf('<form method="%s"%s%s>', $method, $enctype, $this->setAttributes($attributes, ['method', 'file', 'enctype']));
+        return sprintf('<form method="%s" action="%s"%s%s>', $method, $action, $enctype, $this->setAttributes($attributes, ['method', 'action', 'file', 'enctype']));
     }
     
     /**
