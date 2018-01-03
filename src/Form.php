@@ -104,6 +104,11 @@ class Form {
         
         foreach ($options as $val => $opt) {
             $val = $is_assoc? $val : $opt;
+            
+            // escape %
+            $val = str_replace('%', '%%', $val);
+            $opt = str_replace('%', '%%', $opt);
+            
             $formatted_options[] = sprintf($option_format, $val, $opt);
         }
         $select_format = str_replace('{OPTIONS}', implode("\n", $formatted_options), $select_format);
