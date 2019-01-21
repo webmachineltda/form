@@ -39,5 +39,10 @@ return [
     /**
      * Empty option text for selects
      */
-    'emptyOptionText' => 'Select',     
+    'emptyOptionText' => 'Select',
+
+    /**
+     * Default input autocomplete
+     */
+    'defaultAutocomplete' => 'off',    
 ];

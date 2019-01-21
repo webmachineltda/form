@@ -31,6 +31,11 @@ class Form {
     protected $emptyOptionText;      
     
     /**
+     * Default input autocomplete
+     */
+    protected $defaultAutocomplete;
+
+    /**
      * Init config params
      */
     public function __construct() {
@@ -185,6 +190,7 @@ class Form {
         $this->inputClass = config('form.inputClass');
         $this->labelClass = config('form.labelClass');
         $this->emptyOptionText = config('form.emptyOptionText');
+        $this->defaultAutocomplete = config('form.defaultAutocomplete');
     }    
     
     /**
@@ -197,6 +203,7 @@ class Form {
      * @return string
      */
     protected function format($format, $name, $attributes, $type) {
+        if($this->defaultAutocomplete != '') $attributes['autocomplete'] = $this->defaultAutocomplete;
         $label = $this->createLabel($name, $attributes);
         $class = isset($attributes['class'])? $attributes['class'] : $this->inputClass;
         $id = isset($attributes['id'])? $attributes['id'] : $name;
