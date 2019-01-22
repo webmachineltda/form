@@ -207,7 +207,9 @@ class Form {
         $label = $this->createLabel($name, $attributes);
         $class = isset($attributes['class'])? $attributes['class'] : $this->inputClass;
         $id = isset($attributes['id'])? $attributes['id'] : $name;
-        $field = sprintf($format, $name, $class, $id, $this->setAttributes($attributes));
+        $field = isset($attributes['before'])? $attributes['before'] : ''; // set before input
+        $field .= sprintf($format, $name, $class, $id, $this->setAttributes($attributes));
+        if(isset($attributes['after'])) $field .= $attributes['after'];
         $field = sprintf($this->createInputWrapper(), $field);
         return sprintf($this->createWrapper(), $label . "\n" . $field);
     }    
@@ -219,7 +221,7 @@ class Form {
      * @param array $banned
      * @return string
      */
-    protected function setAttributes($attributes, $banned = ['type', 'class', 'id', 'label']) {
+    protected function setAttributes($attributes, $banned = ['type', 'class', 'id', 'label', 'before', 'after']) {
         $result = [];
         foreach ($attributes as $attr => $val) {
             if(in_array($attr, $banned)) continue;
