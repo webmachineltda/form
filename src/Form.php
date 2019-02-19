@@ -83,10 +83,11 @@ class Form {
      * 
      * @param string $name field name
      * @param array $attributes
+     * @param string $text
      * @return string
      */
-    public function textarea($name, $attributes = []) {
-        $format = '<textarea name="%s" class="%s" id="%s"%s></textarea>';
+    public function textarea($name, $attributes = [], $text = '') {
+        $format = '<textarea name="%s" class="%s" id="%s"%s>' . $text . '</textarea>';
         return $this->format($format, $name, $attributes, 'textarea');
     }
     
