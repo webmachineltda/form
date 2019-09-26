@@ -102,11 +102,11 @@ class Form {
      */
     public function select($name, $options, $attributes = [], $use_empty_option = TRUE) {
         $select_format = '<select name="%s" class="%s" id="%s"%s>{OPTIONS}</select>';
-        $option_format = '<option value="%s">%s</option>';
+        $option_format = '<option value="%s"%s>%s</option>';
         $is_assoc = array_keys($options) !== range(0, count($options) - 1);
         
         $label = isset($attributes['label'])? $attributes['label'] : $this->prettifyFieldName($name);
-        $formatted_options = $use_empty_option? [sprintf($option_format, '', $this->emptyOptionText . ' ' . $label)] : [];
+        $formatted_options = $use_empty_option? [sprintf($option_format, '', '', $this->emptyOptionText . ' ' . $label)] : [];
         
         foreach ($options as $val => $opt) {
             $val = $is_assoc? $val : $opt;
@@ -115,7 +115,12 @@ class Form {
             $val = str_replace('%', '%%', $val);
             $opt = str_replace('%', '%%', $opt);
             
-            $formatted_options[] = sprintf($option_format, $val, $opt);
+            $selected = '';
+            if(isset($attributes['selected'])) {
+                $selected = $val == $attributes['selected']? ' selected' : '';
+            }
+
+            $formatted_options[] = sprintf($option_format, $val, $selected, $opt);
         }
         $select_format = str_replace('{OPTIONS}', implode("\n", $formatted_options), $select_format);
         return $this->format($select_format, $name, $attributes, 'textarea');
@@ -222,7 +227,7 @@ class Form {
      * @param array $banned
      * @return string
      */
-    protected function setAttributes($attributes, $banned = ['type', 'class', 'id', 'label', 'before', 'after']) {
+    protected function setAttributes($attributes, $banned = ['type', 'class', 'id', 'label', 'before', 'after', 'selected']) {
         $result = [];
         foreach ($attributes as $attr => $val) {
             if(in_array($attr, $banned)) continue;
