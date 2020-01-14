@@ -151,6 +151,18 @@ class Form {
     }
 
     /**
+     * Build Checkbox input
+     * 
+     * @param string $name field name
+     * @param array $attributes
+     * @return string
+     */    
+    public function checkbox($name, $attributes = []) {
+        $format = '<input type="checkbox" name="%s" class="%s" id="%s"%s>';
+        return $this->format($format, $name, $attributes, 'checkbox');
+    }
+
+    /**
      * Form open
      * 
      * @param array $attributes
